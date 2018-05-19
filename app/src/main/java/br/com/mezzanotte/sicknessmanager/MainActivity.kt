@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import br.com.mezzanotte.sicknessmanager.fragments.DiagnosisFragment
 import br.com.mezzanotte.sicknessmanager.fragments.MapFragment
-import br.com.mezzanotte.sicknessmanager.fragments.RegisterFragment
+import br.com.mezzanotte.sicknessmanager.fragments.ConsumptionFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,18 +14,21 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_register -> {
-                val fragment = RegisterFragment()
-                addFragment(fragment)
+                setTitle("Consumptions")
+                val fragment = ConsumptionFragment()
+                fragment.addYourself(supportFragmentManager)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_map -> {
+                setTitle("Gluten-free places")
                 val fragment = MapFragment()
-                addFragment(fragment)
+                fragment.addYourself(supportFragmentManager)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_diagnosis -> {
+                setTitle("Your diagnosis")
                 val fragment = DiagnosisFragment()
-                addFragment(fragment)
+                fragment.addYourself(supportFragmentManager)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -36,18 +39,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        val fragment = RegisterFragment()
-        addFragment(fragment)
-    }
-
-    // Meus métodos
-    private fun addFragment(fragment: Fragment) {
-        supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
-                .replace(R.id.content, fragment, fragment.javaClass.simpleName)
-                .addToBackStack(fragment.javaClass.simpleName)
-                .commit()
+        title = "Consumptions"
+        val fragment = ConsumptionFragment()
+        fragment.addYourself(supportFragmentManager)
     }
 
 }

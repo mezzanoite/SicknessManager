@@ -13,22 +13,24 @@ import android.widget.Toast
 import br.com.mezzanotte.sicknessmanager.R
 import br.com.mezzanotte.sicknessmanager.adapter.SicknessRegisterAdapter
 import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
-import kotlinx.android.synthetic.main.fragment_register.*
+import android.content.Intent
+import br.com.mezzanotte.sicknessmanager.RegisterActivity
 
-class RegisterFragment : Fragment() {
+
+class ConsumptionFragment : BaseFragment() {
 
     private var adapter: SicknessRegisterAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_register, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_consumption, container, false)
 
         // Recuperando o meu botão flutuante de adicionar registros
         val fab: FloatingActionButton = view.findViewById<FloatingActionButton>(R.id.fabAddRegister)
         fab.setOnClickListener {
-            Toast.makeText(this.context, "Apertei o botaum flutuante", Toast.LENGTH_LONG).show()
-            // TODO abrir tela para adicionar novo registro
+            val intent = Intent(activity, RegisterActivity::class.java)
+            startActivity(intent)
         }
 
         adapter = SicknessRegisterAdapter(getSicknessRegisters(),{
@@ -45,7 +47,11 @@ class RegisterFragment : Fragment() {
 
         return listOf(
                 SicknessRegister("Batatinha", "Yoki" ,"17/05/2018" , ":)"),
-                SicknessRegister("Doritos", "Elma Chips" ,"18/05/2018" , ":(")
+                SicknessRegister("Doritos", "Elma Chips" ,"18/05/2018" , ":("),
+                SicknessRegister("Mousse", "Chocolicias" ,"12/05/2018" , ":D"),
+                SicknessRegister("Sorvete", "Yopa" ,"10/05/2018" , ":'("),
+                SicknessRegister("Doritos", "Elma Chips" ,"09/05/2018" , ":|")
+
         )
     }
 

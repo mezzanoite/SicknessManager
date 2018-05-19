@@ -9,7 +9,7 @@ import android.view.ViewGroup
 
 import br.com.mezzanotte.sicknessmanager.R
 
-class DiagnosisFragment : Fragment() {
+class DiagnosisFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
