@@ -15,6 +15,7 @@ import br.com.mezzanotte.sicknessmanager.adapter.SicknessRegisterAdapter
 import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
 import android.content.Intent
 import br.com.mezzanotte.sicknessmanager.RegisterActivity
+import br.com.mezzanotte.sicknessmanager.database.DatabaseManager
 
 
 class ConsumptionFragment : BaseFragment() {
@@ -45,14 +46,19 @@ class ConsumptionFragment : BaseFragment() {
 
     fun getSicknessRegisters(): List<SicknessRegister> {
 
-        return listOf(
-                SicknessRegister("Batatinha", "Yoki" ,"17/05/2018" , ":)"),
-                SicknessRegister("Doritos", "Elma Chips" ,"18/05/2018" , ":("),
-                SicknessRegister("Mousse", "Chocolicias" ,"12/05/2018" , ":D"),
-                SicknessRegister("Sorvete", "Yopa" ,"10/05/2018" , ":'("),
-                SicknessRegister("Doritos", "Elma Chips" ,"09/05/2018" , ":|")
+        val dao = DatabaseManager.getSicknessRegisterDAO()
+        return dao.findAll()
 
-        )
+        /*return listOf(
+                SicknessRegister(null,"Batatinha", "Yoki" ,"17/05/2018" , ":)"),
+                SicknessRegister(null,"Doritos", "Elma Chips" ,"18/05/2018" , ":("),
+                SicknessRegister(null,"Mousse", "Chocolicias" ,"12/05/2018" , ":D"),
+                SicknessRegister(null,"Sorvete", "Yopa" ,"10/05/2018" , ":'("),
+                SicknessRegister(null,"Doritos", "Elma Chips" ,"09/05/2018" , ":|")
+
+        )*/
     }
+
+
 
 }

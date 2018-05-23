@@ -1,26 +1,34 @@
 package br.com.mezzanotte.sicknessmanager
 
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.text.format.DateFormat
+import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.TimePicker
 import kotlinx.android.synthetic.main.activity_register.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
 
+    companion object {
+
+        val timePattern: String = "HH:mm"
+        val datePattern: String = "dd/MM/yyyy"
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val cal = Calendar.getInstance()
+        tvHour.text = SimpleDateFormat(RegisterActivity.timePattern).format(cal.time)
+        tvDate.text = SimpleDateFormat(RegisterActivity.datePattern).format(cal.time)
+
         this.getTime(tvHour, this)
         this.getDate(tvDate, this)
     }
@@ -40,7 +48,7 @@ class RegisterActivity : AppCompatActivity() {
         val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
             cal.set(Calendar.HOUR_OF_DAY, hour)
             cal.set(Calendar.MINUTE, minute)
-            textView.text = SimpleDateFormat("HH:mm").format(cal.time)
+            textView.text = SimpleDateFormat(RegisterActivity.timePattern).format(cal.time)
         }
 
         btHour.setOnClickListener {
@@ -60,7 +68,7 @@ class RegisterActivity : AppCompatActivity() {
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-            textView.text = SimpleDateFormat("dd.MM.yyyy").format(cal.time)
+            textView.text = SimpleDateFormat(RegisterActivity.datePattern).format(cal.time)
 
         }
 
@@ -71,5 +79,7 @@ class RegisterActivity : AppCompatActivity() {
                     cal.get(Calendar.DAY_OF_MONTH)).show()
         }
     }
+
+
 
 }
