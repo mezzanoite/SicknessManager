@@ -1,5 +1,6 @@
 package br.com.mezzanotte.sicknessmanager.dao
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
@@ -14,7 +15,7 @@ interface SicknessRegisterDao {
     fun findById(id: Long) : SicknessRegister?
 
     @Query("SELECT * from sicknessRegister")
-    fun findAll() : List<SicknessRegister>
+    fun findAll() : LiveData<List<SicknessRegister>>
 
     @Insert(onConflict = REPLACE)
     fun insert(sicknessRegister: SicknessRegister)

@@ -21,11 +21,11 @@ class DiagnosisFragment : BaseFragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
-        val dao = DatabaseManager.getSicknessRegisterDAO()
+        /*val dao = DatabaseManager.getSicknessRegisterDAO()
         dao.insert(SicknessRegister(null,"Fandangos", "Elma Chips" ,"17/05/2018" , ":("))
         dao.insert(SicknessRegister(null,"Água", "Bonafont" ,"18/05/2018" , ":D"))
         dao.insert(SicknessRegister(null,"Leite", "Piracanjuba" ,"12/05/2018" , ":/"))
-        dao.insert(SicknessRegister(null,"Sorvete", "Yopa" ,"10/05/2018" , ":'("))
+        dao.insert(SicknessRegister(null,"Sorvete", "Yopa" ,"10/05/2018" , ":'("))*/
         return inflater.inflate(R.layout.fragment_diagnosis, container, false)
     }
 

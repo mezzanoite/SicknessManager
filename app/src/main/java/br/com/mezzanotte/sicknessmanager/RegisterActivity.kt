@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.TextView
+import br.com.mezzanotte.sicknessmanager.database.DatabaseManager
+import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.adapter_sickness.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,6 +34,18 @@ class RegisterActivity : AppCompatActivity() {
 
         this.getTime(tvHour, this)
         this.getDate(tvDate, this)
+
+        btRegister.setOnClickListener {
+            val dao = DatabaseManager.getSicknessRegisterDAO()
+            dao.insert(SicknessRegister(
+                    null,
+                    etProduto.text.toString(),
+                    etMarca.text.toString() ,
+                    tvDate.text.toString() + tvHour.text.toString() ,
+                    ":(")
+            )
+            finish()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

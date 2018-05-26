@@ -10,7 +10,8 @@ import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
 import kotlinx.android.synthetic.main.adapter_sickness.view.*
 
 class SicknessRegisterAdapter(
-        val sicknessRegisters: List<SicknessRegister>,
+        val context: Context,
+        val sicknessRegisters: List<SicknessRegister>?,
         val onClick: (SicknessRegister) -> Unit) : RecyclerView.Adapter<SicknessRegisterAdapter.SicknessRegisterViewHolder>() {
 
 
@@ -28,15 +29,15 @@ class SicknessRegisterAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SicknessRegisterViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
+        val itemView = LayoutInflater.from(context)
                 .inflate(R.layout.adapter_sickness, parent, false)
         return SicknessRegisterViewHolder(itemView)
     }
 
-    override fun getItemCount() = this.sicknessRegisters.count()
+    override fun getItemCount() = this.sicknessRegisters!!.count()
 
     override fun onBindViewHolder(holder: SicknessRegisterViewHolder, position: Int) {
-        val sicknessRegister = sicknessRegisters[position]
+        val sicknessRegister = sicknessRegisters!![position]
         holder?.let {
             holder.bindView(sicknessRegister, onClick)
         }
