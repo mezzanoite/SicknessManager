@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "476192408922",
+    "firebase_url": "https://sicknessmanager-1526757164035.firebaseio.com",
+    "project_id": "sicknessmanager-1526757164035",
+    "storage_bucket": "sicknessmanager-1526757164035.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476192408922:android:4032864b90bcbf3c",
+        "android_client_info": {
+          "package_name": "br.com.mezzanotte.sicknessmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "476192408922-64uddubp0ud8bhrqkpv0mclvt42pta19.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "476192408922-64uddubp0ud8bhrqkpv0mclvt42pta19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKbjd8OLzccePAGMwpUFZ4Ds3oVk6dESY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,7 @@
 package br.com.mezzanotte.sicknessmanager.viewmodel
 
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.LiveData
 import br.com.mezzanotte.sicknessmanager.dao.SicknessRegisterDao
@@ -19,8 +21,5 @@ class SicknessRegisterViewModel : ViewModel() {
         return currentList
     }
 
-
-
-
-
 }
+

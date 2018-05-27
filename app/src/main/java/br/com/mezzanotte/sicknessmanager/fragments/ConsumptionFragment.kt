@@ -16,6 +16,7 @@ import br.com.mezzanotte.sicknessmanager.R
 import br.com.mezzanotte.sicknessmanager.adapter.SicknessRegisterAdapter
 import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
 import android.content.Intent
+import android.util.Log
 import br.com.mezzanotte.sicknessmanager.RegisterActivity
 import br.com.mezzanotte.sicknessmanager.database.DatabaseManager
 import br.com.mezzanotte.sicknessmanager.viewmodel.SicknessRegisterViewModel
@@ -26,6 +27,10 @@ class ConsumptionFragment : BaseFragment() {
     private var mAdapter: SicknessRegisterAdapter? = null
 
     lateinit var mainViewModel: SicknessRegisterViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -39,24 +44,18 @@ class ConsumptionFragment : BaseFragment() {
             startActivity(intent)
         }
 
-
-
-        val rvSicknessRegisters: RecyclerView = view.findViewById(R.id.rvSicknessRegisters)
+        val rvSicknessRegisters: RecyclerView = view.findViewById<RecyclerView>(R.id.rvSicknessRegisters)
         rvSicknessRegisters.adapter = mAdapter
-        rvSicknessRegisters.layoutManager = LinearLayoutManager(this.context)
+        rvSicknessRegisters.layoutManager = LinearLayoutManager(this.context) as RecyclerView.LayoutManager?
 
         mainViewModel = ViewModelProviders.of(this).get(SicknessRegisterViewModel::class.java)
         mainViewModel.getAllRegisters().observe(this, Observer<List<SicknessRegister>> {
             registerList ->
-            if (rvSicknessRegisters.adapter == null) {
-                mAdapter = SicknessRegisterAdapter(this.context!!, registerList,{
-                    Toast.makeText(this.context, "Clicou sobre o item " + it.produto, Toast.LENGTH_LONG).show()
-                })
-                rvSicknessRegisters.adapter = mAdapter
-            } else {
-                //notifyRecyclerViewOfInsertsUpdatesDeletes()
-            }
-
+            mAdapter = SicknessRegisterAdapter(this.context!!, registerList,{
+                Toast.makeText(this.context, "Clicou sobre o item " + it.produto, Toast.LENGTH_LONG).show()
+            })
+            rvSicknessRegisters.adapter = mAdapter
+            rvSicknessRegisters.scrollToPosition(registerList!!.lastIndex)
         })
 
 

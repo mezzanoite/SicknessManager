@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import br.com.mezzanotte.sicknessmanager.R
 import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
 import kotlinx.android.synthetic.main.adapter_sickness.view.*
+import android.view.animation.AlphaAnimation
+
+
 
 class SicknessRegisterAdapter(
         val context: Context,
@@ -40,7 +43,14 @@ class SicknessRegisterAdapter(
         val sicknessRegister = sicknessRegisters!![position]
         holder?.let {
             holder.bindView(sicknessRegister, onClick)
+            //setFadeAnimation(holder.itemView)
         }
+    }
+
+    private fun setFadeAnimation(view: View) {
+        val anim = AlphaAnimation(0.0f, 1.0f)
+        anim.duration = 1000
+        view.startAnimation(anim)
     }
 
 }
