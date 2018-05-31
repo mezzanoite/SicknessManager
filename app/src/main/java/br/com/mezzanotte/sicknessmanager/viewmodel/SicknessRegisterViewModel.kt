@@ -14,7 +14,7 @@ class SicknessRegisterViewModel : ViewModel() {
     private lateinit var currentList: LiveData<List<SicknessRegister>>
 
     init {
-        currentList = DatabaseManager.getSicknessRegisterDAO().findAll()
+        currentList = DatabaseManager.getSicknessRegisterDao().findAll()
     }
 
     fun getAllRegisters(): LiveData<List<SicknessRegister>> {

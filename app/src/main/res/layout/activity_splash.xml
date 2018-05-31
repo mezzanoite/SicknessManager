@@ -13,6 +13,6 @@
         android:layout_width="@dimen/splash_width"
         android:layout_height="@dimen/splash_height"
         android:id="@+id/splash"
-        android:background="@drawable/splash" />
+        android:background="@drawable/logo" />
 
 </LinearLayout>

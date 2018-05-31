@@ -9,7 +9,8 @@ import br.com.mezzanotte.sicknessmanager.R
 import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
 import kotlinx.android.synthetic.main.adapter_sickness.view.*
 import android.view.animation.AlphaAnimation
-
+import br.com.mezzanotte.sicknessmanager.database.DatabaseManager
+import br.com.mezzanotte.sicknessmanager.model.Product
 
 
 class SicknessRegisterAdapter(
@@ -22,11 +23,12 @@ class SicknessRegisterAdapter(
     //  ViewHolder com as minhas views
     class SicknessRegisterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(sicknessRegister: SicknessRegister, onClick: (SicknessRegister) -> Unit) = with(itemView) {
-            tvProduto.text = sicknessRegister.produto
-            tvMarca.text = sicknessRegister.marca
+            val productDao = DatabaseManager.getProductDao()
+            val product: Product = productDao.findById(sicknessRegister.productId)!!
+            tvProduto.text = product.name
+            tvMarca.text = product.brand
             tvDataConsumo.text = sicknessRegister.dataConsumo
-            tvStatus.text = sicknessRegister.status
-
+            tvStatus.text = sicknessRegister.statusImageId.toString()
             setOnClickListener { onClick(sicknessRegister) }
         }
     }

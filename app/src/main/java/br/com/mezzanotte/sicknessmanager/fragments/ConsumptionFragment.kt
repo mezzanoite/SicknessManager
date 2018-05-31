@@ -52,7 +52,7 @@ class ConsumptionFragment : BaseFragment() {
         mainViewModel.getAllRegisters().observe(this, Observer<List<SicknessRegister>> {
             registerList ->
             mAdapter = SicknessRegisterAdapter(this.context!!, registerList,{
-                Toast.makeText(this.context, "Clicou sobre o item " + it.produto, Toast.LENGTH_LONG).show()
+                Toast.makeText(this.context, "Clicou sobre o item " + it.productId, Toast.LENGTH_LONG).show()
             })
             rvSicknessRegisters.adapter = mAdapter
             rvSicknessRegisters.scrollToPosition(registerList!!.lastIndex)

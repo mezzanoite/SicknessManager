@@ -4,13 +4,16 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import br.com.mezzanotte.sicknessmanager.dao.ProductDao
 import br.com.mezzanotte.sicknessmanager.dao.SicknessRegisterDao
+import br.com.mezzanotte.sicknessmanager.model.Product
 import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
 
-@Database(entities = arrayOf(SicknessRegister::class), version = 1)
+@Database(entities = arrayOf(SicknessRegister::class, Product::class), version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun sicknessRegisterDao() : SicknessRegisterDao
+    abstract fun productDao() : ProductDao
 
     /*companion object {
         private var INSTANCE: AppDatabase? = null

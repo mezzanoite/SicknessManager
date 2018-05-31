@@ -2,6 +2,7 @@ package br.com.mezzanotte.sicknessmanager.database
 
 import android.arch.persistence.room.Room
 import br.com.mezzanotte.sicknessmanager.SicknessManagerApplication
+import br.com.mezzanotte.sicknessmanager.dao.ProductDao
 import br.com.mezzanotte.sicknessmanager.dao.SicknessRegisterDao
 
 
@@ -24,8 +25,12 @@ object DatabaseManager {
         }
     }
 
-    fun getSicknessRegisterDAO(): SicknessRegisterDao {
+    fun getSicknessRegisterDao(): SicknessRegisterDao {
         return dbInstance.sicknessRegisterDao()
+    }
+
+    fun getProductDao(): ProductDao {
+        return dbInstance.productDao()
     }
 
 }

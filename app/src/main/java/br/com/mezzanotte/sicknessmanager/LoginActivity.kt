@@ -11,9 +11,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        clLogin.setBackgroundColor(resources.getColor(R.color.primary_light))
+
         btLogin.setOnClickListener{
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            startActivity(intent)
+            val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(mainIntent)
             finish()
         }
     }
