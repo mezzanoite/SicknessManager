@@ -1,23 +1,23 @@
 package br.com.mezzanotte.sicknessmanager
 
+import android.arch.lifecycle.Observer
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import android.widget.Toast
 import br.com.mezzanotte.sicknessmanager.database.DatabaseManager
 import br.com.mezzanotte.sicknessmanager.model.Product
 import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
+import br.com.mezzanotte.sicknessmanager.viewmodel.ProductViewModel
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.adapter_sickness.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,9 +25,11 @@ class RegisterActivity : AppCompatActivity() {
 
     var productId: Long = 0
 
+    lateinit var productViewModel: ProductViewModel
+
     companion object {
-        val timePattern: String = "HH:mm"
-        val datePattern: String = "dd/MM/yyyy"
+        const val timePattern: String = "HH:mm"
+        const val datePattern: String = "dd/MM/yyyy"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,30 +49,32 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val productDao = DatabaseManager.getProductDao()
-        val products: List<Product> = productDao.findAll()
-        var productsName: ArrayList<String> = ArrayList<String>()
-        products.forEach {
-            productsName.add(it.name)
-        }
+        productViewModel = ViewModelProviders.of(this).get(ProductViewModel::class.java)
+        productViewModel.getAllRegisters().observe(this, Observer {
+            var productsName: ArrayList<String> = ArrayList()
+            it?.forEach {
+                productsName.add(it.name)
+            }
+            // Create an ArrayAdapter using a simple spinner layout and languages array
+            val spinnerAdapter: ArrayAdapter<Product> = ArrayAdapter(this, android.R.layout.simple_spinner_item, it)
+            // Set layout to use when the list of choices appear
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Set Adapter to Spinner
+            spProducts.adapter = spinnerAdapter
 
-        // Create an ArrayAdapter using a simple spinner layout and languages array
-        val spinnerAdapter: ArrayAdapter<Product> = ArrayAdapter(this, android.R.layout.simple_spinner_item, products)
-        // Set layout to use when the list of choices appear
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        // Set Adapter to Spinner
-        spProducts.adapter = spinnerAdapter
+            spProducts.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {
 
-        spProducts.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
 
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val product: Product = parent!!.getItemAtPosition(position) as Product
+                    productId = product.productId!!
+                }
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val product: Product = parent!!.getItemAtPosition(position) as Product
-                productId = product.productId!!
-            }
-        }
+        })
+
 
 
         btRegister.setOnClickListener {
