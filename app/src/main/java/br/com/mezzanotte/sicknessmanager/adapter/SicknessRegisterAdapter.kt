@@ -2,6 +2,7 @@ package br.com.mezzanotte.sicknessmanager.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,7 @@ class SicknessRegisterAdapter(
             tvProduto.text = product.name
             tvMarca.text = product.brand
             tvDataConsumo.text = sicknessRegister.dataConsumo
-            tvStatus.text = sicknessRegister.statusImageId.toString()
+            ivStatus.setImageResource(sicknessRegister.statusImageId)
 
             tvMenu.setOnClickListener {
                 onClickMenu(sicknessRegister, tvMenu)

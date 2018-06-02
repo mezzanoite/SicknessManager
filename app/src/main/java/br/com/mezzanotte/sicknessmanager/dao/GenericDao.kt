@@ -11,7 +11,7 @@ import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
 interface GenericDao<T> {
 
     @Insert(onConflict = REPLACE)
-    fun insert(obj: T)
+    fun insert(obj: T): Long
 
     @Update
     fun update(obj: T)

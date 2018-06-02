@@ -7,17 +7,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import android.widget.Toast
 import br.com.mezzanotte.sicknessmanager.R
 import br.com.mezzanotte.sicknessmanager.RegisterActivity
 import br.com.mezzanotte.sicknessmanager.adapter.SicknessRegisterAdapter
 import br.com.mezzanotte.sicknessmanager.database.DatabaseManager
+import br.com.mezzanotte.sicknessmanager.model.Product
 import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
 import br.com.mezzanotte.sicknessmanager.viewmodel.SicknessRegisterViewModel
 
@@ -55,12 +56,12 @@ class ConsumptionFragment : BaseFragment() {
                         Toast.makeText(this.context, "Clicou sobre o item " + it.productId, Toast.LENGTH_LONG).show()
                     },
                     { sicknessRegister: SicknessRegister, menuView: View ->
-                        val popUpMenu = PopupMenu(context, menuView)
+                        val popUpMenu = PopupMenu(this.context!!, menuView)
                         popUpMenu.inflate(R.menu.item_menu)
                         popUpMenu.setOnMenuItemClickListener({ item: MenuItem? ->
                             when (item!!.itemId) {
                                 R.id.share -> {
-                                    Toast.makeText(this.context, sicknessRegister.dataConsumo, Toast.LENGTH_SHORT).show()
+                                    share(sicknessRegister)
                                 }
                                 R.id.delete -> {
                                     val index = registerList?.indexOf(sicknessRegister)!!
@@ -74,12 +75,46 @@ class ConsumptionFragment : BaseFragment() {
                             }
                             true
                         })
+
                         popUpMenu.show()
                     })
             rvSicknessRegisters.adapter = mAdapter
         })
 
         return view
+    }
+
+    fun share(sicknessRegister: SicknessRegister) {
+
+        val product: Product? = DatabaseManager.getProductDao().findById(sicknessRegister.productId)
+        if (product != null) {
+            var status = ""
+            when (sicknessRegister.statusImageId) {
+                R.drawable.happy -> {
+                    status = getString(R.string.statusHappy)
+                }
+                R.drawable.confused -> {
+                    status = getString(R.string.statusConfused)
+                }
+                R.drawable.sad -> {
+                    status = getString(R.string.statusSad)
+                }
+            }
+
+            val myShareText = "Consumi o produto ${product.name} da marca ${product.brand} na data " +
+                    "${sicknessRegister.dataConsumo} e fez eu me sentir: ${status}"
+            val whatsappIntent = Intent(Intent.ACTION_SEND)
+            whatsappIntent.type = "text/plain"
+            whatsappIntent.`package` = "com.whatsapp"
+            whatsappIntent.putExtra(Intent.EXTRA_TEXT, myShareText)
+            try {
+                activity?.startActivity(whatsappIntent)
+            } catch (ex: android.content.ActivityNotFoundException) {
+                Toast.makeText(this.context, "Whatsapp have not been installed.", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(this.context, "Erro ao compartilhar o produto", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

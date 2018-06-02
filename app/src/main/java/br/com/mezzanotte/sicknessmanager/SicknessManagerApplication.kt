@@ -28,6 +28,6 @@ class SicknessManagerApplication : MultiDexApplication() {
     // Chamado quando o Android finalizar o processo da aplicação
     override fun onTerminate() {
         super.onTerminate()
-        Log.d(TAG, "CarrosApplication.onTerminate()")
+        Log.d(TAG, "Finalizou!")
     }
 }

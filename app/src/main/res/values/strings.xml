@@ -22,4 +22,14 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="loginTitle">Login</string>
+    <string name="password">Password</string>
+
+
+    <!-- Status -->
+    <string name="statusHappy">happy</string>
+    <string name="statusConfused">confused</string>
+    <string name="statusSad">sad</string>
+
+
 </resources>

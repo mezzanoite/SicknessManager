@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_checked="true" android:state_pressed="false"
+        android:drawable="@drawable/happy" />
+    <item android:state_checked="false" android:state_pressed="false"
+        android:drawable="@drawable/happy_off" />
+
+    <item android:state_checked="true" android:state_pressed="false"
+        android:drawable="@drawable/confused" />
+    <item android:state_checked="false" android:state_pressed="false"
+        android:drawable="@drawable/confused_off" />
+
+    <item android:state_checked="true" android:state_pressed="false"
+        android:drawable="@drawable/sad" />
+    <item android:state_checked="false" android:state_pressed="false"
+        android:drawable="@drawable/sad_off" />
+
+</selector>

@@ -1,5 +1,6 @@
 package br.com.mezzanotte.sicknessmanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -18,6 +19,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        title = getString(R.string.loginTitle)
+
         clLogin.setBackgroundColor(resources.getColor(R.color.primary_light))
         firebaseAuth = FirebaseAuth.getInstance()
 
@@ -34,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         val email = "teste@sicknessmanager.com"
         val pass = "teste10"
 
-        /*btLogin.setOnClickListener{
+        btLogin.setOnClickListener{
             firebaseAuth.signInWithEmailAndPassword(email, pass).
                     addOnCompleteListener(this, { task ->
                         if(task.isSuccessful) {
@@ -47,9 +50,10 @@ class LoginActivity : AppCompatActivity() {
                         }
                     })
 
-        }*/
-        // TODO criar botão para cadastro de usuário
-        btLogin.setOnClickListener {
+        }
+
+        tvCreateAccount.setTextColor(resources.getColor(R.color.primary_dark))
+        tvCreateAccount.setOnClickListener {
             openCreateUserDialog()
         }
 

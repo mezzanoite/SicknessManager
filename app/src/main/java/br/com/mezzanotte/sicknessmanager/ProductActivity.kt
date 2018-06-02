@@ -6,6 +6,10 @@ import android.view.MenuItem
 import br.com.mezzanotte.sicknessmanager.database.DatabaseManager
 import br.com.mezzanotte.sicknessmanager.model.Product
 import kotlinx.android.synthetic.main.activity_product.*
+import android.app.Activity
+import android.content.Intent
+
+
 
 class ProductActivity : AppCompatActivity() {
 
@@ -14,13 +18,18 @@ class ProductActivity : AppCompatActivity() {
         setContentView(R.layout.activity_product)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        title = "New product registration"
+
         btRegisterProduct.setOnClickListener {
             val productDao = DatabaseManager.getProductDao()
-            productDao.insert(Product(
+            val id: Long = productDao.insert(Product(
                     null,
                     etProduct.text.toString(),
                     etBrand.text.toString()
             ))
+            val resultIntent = Intent()
+            resultIntent.putExtra("PRODUCT_ID", id)
+            setResult(Activity.RESULT_OK, resultIntent)
             finish()
         }
     }
