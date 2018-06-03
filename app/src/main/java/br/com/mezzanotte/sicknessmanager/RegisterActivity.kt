@@ -1,5 +1,6 @@
 package br.com.mezzanotte.sicknessmanager
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.arch.lifecycle.Observer
@@ -7,10 +8,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
@@ -22,20 +22,18 @@ import br.com.mezzanotte.sicknessmanager.viewmodel.ProductViewModel
 import kotlinx.android.synthetic.main.activity_register.*
 import java.text.SimpleDateFormat
 import java.util.*
-import android.widget.AutoCompleteTextView
-import android.R.array
-import android.app.Activity
-import kotlinx.android.synthetic.main.adapter_sickness.*
 
 
 class RegisterActivity : AppCompatActivity() {
 
     var productId: Long = 0L
     var statusImageId: Int = R.drawable.happy
+    var sicknessRegisterEdit: SicknessRegister? = null
 
     lateinit var productViewModel: ProductViewModel
 
     companion object {
+        const val FAB_REQUEST_CODE = 0
         const val timePattern: String = "HH:mm"
         const val datePattern: String = "dd/MM/yyyy"
     }
@@ -45,11 +43,32 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        title = "New sickness register"
+        sicknessRegisterEdit = intent.getParcelableExtra(AppConstants.REGISTER_ITEM)
 
-        val cal = Calendar.getInstance()
-        tvHour.text = SimpleDateFormat(RegisterActivity.timePattern).format(cal.time)
-        tvDate.text = SimpleDateFormat(RegisterActivity.datePattern).format(cal.time)
+        if (sicknessRegisterEdit != null) {
+            title = "Edit sickness register"
+            refreshProduct(sicknessRegisterEdit!!.productId)
+            val dataString = sicknessRegisterEdit!!.dataConsumo
+            val dataStringSplitted = dataString.split(" ")
+            tvDate.text = dataStringSplitted[0]
+            tvHour.text = dataStringSplitted[1]
+            when (sicknessRegisterEdit!!.statusImageId) {
+                R.drawable.happy -> {
+                    setImageStatus(ivHappy, R.drawable.happy)
+                }
+                R.drawable.confused -> {
+                    setImageStatus(ivConfused, R.drawable.confused)
+                }
+                R.drawable.sad -> {
+                    setImageStatus(ivSad, R.drawable.sad)
+                }
+            }
+        } else {
+            title = "New sickness register"
+            val cal = Calendar.getInstance()
+            tvHour.text = SimpleDateFormat(RegisterActivity.timePattern).format(cal.time)
+            tvDate.text = SimpleDateFormat(RegisterActivity.datePattern).format(cal.time)
+        }
 
         this.getTime(tvHour, this)
         this.getDate(tvDate, this)
@@ -75,7 +94,7 @@ class RegisterActivity : AppCompatActivity() {
 
         fabAddProduct.setOnClickListener {
             val intent = Intent(this, ProductActivity::class.java)
-            startActivityForResult(intent, 0)
+            startActivityForResult(intent, FAB_REQUEST_CODE)
         }
 
         ivHappy.setOnClickListener {
@@ -91,28 +110,34 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         btRegister.setOnClickListener {
-            val dao = DatabaseManager.getSicknessRegisterDao()
-            dao.insert(SicknessRegister(
-                    null,
-                    //etProduto.text.toString(),
-                    //etMarca.text.toString() ,
-                    tvDate.text.toString() + " " +  tvHour.text.toString() ,
-                    statusImageId, productId)
-            )
-            finish()
+            if (productId == null || productId == 0L) {
+                showAlertDialog()
+            } else {
+                val dao = DatabaseManager.getSicknessRegisterDao()
+                val dataConsumo = tvDate.text.toString() + " " +  tvHour.text.toString()
+                if (sicknessRegisterEdit != null) {
+                    sicknessRegisterEdit!!.dataConsumo = dataConsumo
+                    sicknessRegisterEdit!!.statusImageId = statusImageId
+                    sicknessRegisterEdit!!.productId = productId
+                    dao.update(sicknessRegisterEdit!!)
+                } else {
+                    dao.insert(SicknessRegister(null, dataConsumo, statusImageId, productId))
+                }
+                finish()
+            }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            0 ->
+            FAB_REQUEST_CODE ->
                 if (resultCode == Activity.RESULT_OK) {
-                    productId = data?.getLongExtra("PRODUCT_ID", 0L)!!
+                    productId = data?.getLongExtra(AppConstants.PRODUCT_ID, 0L)!!
                 }
         }
         if (productId != 0L) {
-            etProducts.setText(DatabaseManager.getProductDao().findById(productId).toString())
+            refreshProduct(productId)
         }
     }
 
@@ -123,6 +148,22 @@ class RegisterActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showAlertDialog() {
+        val alertDialog = AlertDialog.Builder(this@RegisterActivity).create()
+        alertDialog.setTitle("Ups!")
+        alertDialog.setMessage("You forgot to choose a product")
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", {
+            dialog, _ ->
+            dialog.dismiss()
+        })
+        alertDialog.show()
+    }
+
+    private fun refreshProduct(id: Long) {
+        this.productId = id
+        etProducts.setText(DatabaseManager.getProductDao().findById(id).toString())
     }
 
     private fun setImageStatus(imageView: ImageView, drawable: Int) {
@@ -136,7 +177,7 @@ class RegisterActivity : AppCompatActivity() {
         imageView.setImageResource(drawable)
     }
 
-    fun getTime(textView: TextView, context: Context){
+    private fun getTime(textView: TextView, context: Context){
 
         val cal = Calendar.getInstance()
 
@@ -154,7 +195,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    fun getDate(textView: TextView, context: Context){
+    private fun getDate(textView: TextView, context: Context){
 
         val cal = Calendar.getInstance()
 
@@ -174,7 +215,5 @@ class RegisterActivity : AppCompatActivity() {
                     cal.get(Calendar.DAY_OF_MONTH)).show()
         }
     }
-
-
 
 }

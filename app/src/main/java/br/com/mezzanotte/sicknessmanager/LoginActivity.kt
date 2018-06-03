@@ -1,5 +1,6 @@
 package br.com.mezzanotte.sicknessmanager
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -19,28 +20,36 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE)
+
+        val keepLogin = sharedPref.getBoolean(AppConstants.SHARED_PREFS_KEEP_LOGIN, false)
+
         title = getString(R.string.loginTitle)
 
         clLogin.setBackgroundColor(resources.getColor(R.color.primary_light))
         firebaseAuth = FirebaseAuth.getInstance()
 
         val firebaseUser: FirebaseUser? = firebaseAuth.currentUser
-        if (firebaseUser == null) {
-            Toast.makeText(this, "Usuário não logado", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Usuário logado: ${firebaseUser.email}", Toast.LENGTH_SHORT).show()
-            //val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
-            //startActivity(mainIntent)
+        if (firebaseUser != null) {
+            if (!keepLogin) {
+                firebaseAuth.signOut()
+            } else {
+                // Usuário se manteve logado
+                Toast.makeText(this, "Welcome back ${firebaseUser.email}", Toast.LENGTH_LONG).show()
+                val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(mainIntent)
+            }
         }
 
-
-        val email = "teste@sicknessmanager.com"
-        val pass = "teste10"
-
         btLogin.setOnClickListener{
+            val email = etEmail.text.toString()
+            val pass = etPassword.text.toString()
             firebaseAuth.signInWithEmailAndPassword(email, pass).
                     addOnCompleteListener(this, { task ->
                         if(task.isSuccessful) {
+                            val editor = sharedPref.edit()
+                            editor.putBoolean(AppConstants.SHARED_PREFS_KEEP_LOGIN, swKeep.isChecked)
+                            editor.apply()
                             val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(mainIntent)
 
@@ -56,7 +65,6 @@ class LoginActivity : AppCompatActivity() {
         tvCreateAccount.setOnClickListener {
             openCreateUserDialog()
         }
-
     }
 
     private fun openCreateUserDialog() {

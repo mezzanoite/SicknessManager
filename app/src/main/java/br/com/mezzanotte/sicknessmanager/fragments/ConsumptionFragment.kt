@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import br.com.mezzanotte.sicknessmanager.AppConstants
 import br.com.mezzanotte.sicknessmanager.R
 import br.com.mezzanotte.sicknessmanager.RegisterActivity
 import br.com.mezzanotte.sicknessmanager.adapter.SicknessRegisterAdapter
@@ -52,8 +53,10 @@ class ConsumptionFragment : BaseFragment() {
                     this.context!!,
                     registerList,
                     {
-
-                        Toast.makeText(this.context, "Clicou sobre o item " + it.productId, Toast.LENGTH_LONG).show()
+                        val intent = Intent(activity, RegisterActivity::class.java)
+                        intent.putExtra(AppConstants.REGISTER_ITEM, it)
+                        startActivity(intent)
+                        //Toast.makeText(this.context, "Clicou sobre o item " + it.productId, Toast.LENGTH_LONG).show()
                     },
                     { sicknessRegister: SicknessRegister, menuView: View ->
                         val popUpMenu = PopupMenu(this.context!!, menuView)

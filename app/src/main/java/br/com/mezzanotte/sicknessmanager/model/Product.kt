@@ -20,6 +20,7 @@ data class Product(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        productId?.let { parcel.writeLong(it) }
         parcel.writeString(name)
         parcel.writeString(brand)
     }
@@ -39,6 +40,6 @@ data class Product(
     }
 
     override fun toString(): String {
-        return name + " | " + brand
+        return "$name ($brand)"
     }
 }

@@ -13,24 +13,18 @@ import br.com.mezzanotte.sicknessmanager.RegisterActivity
                 childColumns = arrayOf("product_id"))))
 data class SicknessRegister(
         @PrimaryKey(autoGenerate = true) var sicknessRegisterId: Long?,
-        //var produto: String,
-        //var marca: String,
         var dataConsumo: String,
         var statusImageId: Int,
         @ColumnInfo(name = "product_id") var productId: Long): Parcelable {
 
     constructor(parcel: Parcel) : this(
-            null,
-            //parcel.readString(),
-            //parcel.readString(),
+            parcel.readLong(),
             parcel.readString(),
             parcel.readInt(),
             parcel.readLong())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        //parcel.writeLong(id!!)
-        //parcel.writeString(produto)
-        //parcel.writeString(marca)
+        sicknessRegisterId?.let { parcel.writeLong(it) }
         parcel.writeString(dataConsumo)
         parcel.writeInt(statusImageId)
         parcel.writeLong(productId)

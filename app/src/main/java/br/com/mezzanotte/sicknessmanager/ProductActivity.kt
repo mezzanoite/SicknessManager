@@ -8,7 +8,7 @@ import br.com.mezzanotte.sicknessmanager.model.Product
 import kotlinx.android.synthetic.main.activity_product.*
 import android.app.Activity
 import android.content.Intent
-
+import android.support.v7.app.AlertDialog
 
 
 class ProductActivity : AppCompatActivity() {
@@ -21,16 +21,35 @@ class ProductActivity : AppCompatActivity() {
         title = "New product registration"
 
         btRegisterProduct.setOnClickListener {
-            val productDao = DatabaseManager.getProductDao()
-            val id: Long = productDao.insert(Product(
-                    null,
-                    etProduct.text.toString(),
-                    etBrand.text.toString()
-            ))
-            val resultIntent = Intent()
-            resultIntent.putExtra("PRODUCT_ID", id)
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish()
+            var message: String? = null
+            val nomeProduto = etProduct.text.toString()
+            val marca = etBrand.text.toString()
+            if (nomeProduto.isBlank()) {
+                message = "The following fields are required: Product name"
+            }
+            if (marca.isBlank()) {
+                if (message != null) {
+                    message += " and brand"
+                } else {
+                    message = "The following fields are required: Brand"
+                }
+            }
+
+            if (message != null) {
+                showAlertDialog(message)
+            } else {
+                val productDao = DatabaseManager.getProductDao()
+                val id: Long = productDao.insert(Product(
+                        null,
+                        etProduct.text.toString(),
+                        etBrand.text.toString()
+                ))
+                val resultIntent = Intent()
+                resultIntent.putExtra(AppConstants.PRODUCT_ID, id)
+                setResult(Activity.RESULT_OK, resultIntent)
+                finish()
+            }
+
         }
     }
 
@@ -41,5 +60,16 @@ class ProductActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showAlertDialog(text: String) {
+        val alertDialog = AlertDialog.Builder(this@ProductActivity).create()
+        alertDialog.setTitle("Ups!")
+        alertDialog.setMessage(text)
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", {
+            dialog, _ ->
+            dialog.dismiss()
+        })
+        alertDialog.show()
     }
 }
