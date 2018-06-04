@@ -40,7 +40,7 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ProductActivity"></activity>
 
