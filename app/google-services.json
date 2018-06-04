@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "476192408922-668koj88eced19sn3t23p0h2v61fr2jg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.mezzanotte.sicknessmanager",
+            "certificate_hash": "c522e274d530fca0df5c9e54c9005c40d2dadc33"
+          }
+        },
+        {
           "client_id": "476192408922-64uddubp0ud8bhrqkpv0mclvt42pta19.apps.googleusercontent.com",
           "client_type": 3
         },
@@ -33,8 +41,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "476192408922-64uddubp0ud8bhrqkpv0mclvt42pta19.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

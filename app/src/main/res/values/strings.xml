@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">SicknessManager</string>
-    <string name="title_register">Register</string>
-    <string name="title_map">Map</string>
-    <string name="title_diagnosis">Diagnosis</string>
+    <string name="title_register">Consumptions</string>
+    <string name="title_map">Gluten-free places</string>
+    <string name="title_diagnosis">Your diagnosis</string>
     <string name="title_about">About</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -30,6 +30,5 @@
     <string name="statusHappy">happy</string>
     <string name="statusConfused">confused</string>
     <string name="statusSad">sad</string>
-
 
 </resources>
