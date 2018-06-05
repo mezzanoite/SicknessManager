@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Create Account"
+            android:text="@string/create_account"
             android:fontFamily="sans-serif"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -32,7 +32,7 @@
         android:layout_marginBottom="4dp"
         android:drawableLeft="@drawable/ic_user"
         android:drawablePadding="5dp"
-        android:hint="E-mail" />
+        android:hint="@string/e_mail" />
     <EditText
         android:id="@+id/dgPassword"
         android:inputType="textPassword"
@@ -45,5 +45,5 @@
         android:fontFamily="sans-serif"
         android:drawableLeft="@drawable/ic_lock"
         android:drawablePadding="5dp"
-        android:hint="Password"/>
+        android:hint="@string/password"/>
 </LinearLayout>

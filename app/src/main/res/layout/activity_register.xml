@@ -49,7 +49,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="28dp"
             android:ems="10"
-            android:hint="Select the product"
+            android:hint="@string/select_the_product"
             android:inputType="textPersonName"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/fabAddProduct"
@@ -67,7 +67,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginRight="28dp"
         android:layout_marginTop="32dp"
-        android:text="Hour"
+        android:text="@string/hour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btDate" />
 
@@ -90,7 +90,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginRight="28dp"
         android:layout_marginTop="32dp"
-        android:text="Date"
+        android:text="@string/date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
@@ -115,7 +115,7 @@
         android:layout_marginRight="96dp"
         android:layout_marginStart="96dp"
         android:layout_marginTop="32dp"
-        android:text="Register"
+        android:text="@string/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -130,7 +130,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Consumption hour:"
+        android:text="@string/consumption_hour"
         app:layout_constraintEnd_toStartOf="@+id/tvHour"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btHour" />
@@ -144,7 +144,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Consumption date:"
+        android:text="@string/consumption_date"
         app:layout_constraintEnd_toStartOf="@+id/tvDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btDate" />
@@ -195,7 +195,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Did this food sit well?"
+        android:text="@string/did_this_food_sit_well"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btHour" />

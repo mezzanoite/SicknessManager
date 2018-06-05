@@ -1,5 +1,6 @@
 package br.com.mezzanotte.sicknessmanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        setSupportActionBar(toolbar)
         toolbar.title = "Consumptions"
         val fragment = ConsumptionFragment()
         fragment.addYourself(supportFragmentManager)
@@ -66,8 +68,12 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val firebaseAuth = FirebaseAuth.getInstance()
         when (item.itemId) {
-            R.id.menuLogout ->
-                    firebaseAuth.signOut()
+            R.id.menuLogout -> {
+                firebaseAuth.signOut()
+                val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
         return true
     }

@@ -46,7 +46,7 @@ class RegisterActivity : AppCompatActivity() {
         sicknessRegisterEdit = intent.getParcelableExtra(AppConstants.REGISTER_ITEM)
 
         if (sicknessRegisterEdit != null) {
-            title = "Edit sickness register"
+            title = getString(R.string.edit_register)
             refreshProduct(sicknessRegisterEdit!!.productId)
             val dataString = sicknessRegisterEdit!!.dataConsumo
             val dataStringSplitted = dataString.split(" ")
