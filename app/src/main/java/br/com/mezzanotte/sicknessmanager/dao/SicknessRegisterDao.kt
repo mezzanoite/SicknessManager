@@ -15,6 +15,12 @@ interface SicknessRegisterDao : GenericDao<SicknessRegister> {
     fun findById(id: Long): SicknessRegister?
 
     @Query("SELECT * from sicknessRegister")
-    fun findAll(): LiveData<List<SicknessRegister>>
+    fun findAllLiveData(): LiveData<List<SicknessRegister>>
+
+    @Query("SELECT * from sicknessRegister")
+    fun findAll(): List<SicknessRegister>
+
+    @Query("SELECT product_id, COUNT(product_id) as ocurrences FROM sicknessRegister WHERE statusImageId = :statusId  GROUP BY product_id ORDER BY ocurrences DESC LIMIT 1;")
+    fun findMostOcurrenceOfStatus(statusId: Int): ProductCount
 
 }

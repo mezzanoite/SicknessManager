@@ -22,9 +22,13 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_map, container, false)
+        return view
+    }
+
+    override fun onStart() {
+        super.onStart()
         val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        return view
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

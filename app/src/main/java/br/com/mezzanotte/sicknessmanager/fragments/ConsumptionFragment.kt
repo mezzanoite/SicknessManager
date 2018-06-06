@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import br.com.mezzanotte.sicknessmanager.AppConstants
 import br.com.mezzanotte.sicknessmanager.R
@@ -22,6 +23,7 @@ import br.com.mezzanotte.sicknessmanager.database.DatabaseManager
 import br.com.mezzanotte.sicknessmanager.model.Product
 import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
 import br.com.mezzanotte.sicknessmanager.viewmodel.SicknessRegisterViewModel
+import kotlinx.android.synthetic.main.fragment_consumption.*
 
 
 class ConsumptionFragment : BaseFragment() {
@@ -49,6 +51,11 @@ class ConsumptionFragment : BaseFragment() {
         mainViewModel = ViewModelProviders.of(this).get(SicknessRegisterViewModel::class.java)
         mainViewModel.getAllRegisters().observe(this, Observer<List<SicknessRegister>> {
             registerList ->
+            if (registerList!!.isNotEmpty()) {
+                tvNoRegisters.visibility = TextView.GONE
+            } else {
+                tvNoRegisters.visibility = TextView.VISIBLE
+            }
             mAdapter = SicknessRegisterAdapter(
                     this.context!!,
                     registerList,
@@ -56,7 +63,6 @@ class ConsumptionFragment : BaseFragment() {
                         val intent = Intent(activity, RegisterActivity::class.java)
                         intent.putExtra(AppConstants.REGISTER_ITEM, it)
                         startActivity(intent)
-                        //Toast.makeText(this.context, "Clicou sobre o item " + it.productId, Toast.LENGTH_LONG).show()
                     },
                     { sicknessRegister: SicknessRegister, menuView: View ->
                         val popUpMenu = PopupMenu(this.context!!, menuView)

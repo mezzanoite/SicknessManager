@@ -11,6 +11,15 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/adapter_sickness" />
 
+    <TextView
+        android:id="@+id/tvNoRegisters"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="No consumptions registered yet"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAddRegister"
         android:layout_width="wrap_content"
