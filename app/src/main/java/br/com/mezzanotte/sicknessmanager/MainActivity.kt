@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         setSupportActionBar(toolbar)
-        toolbar.title = "Consumptions"
+        toolbar.title = getString(R.string.title_register)
         val fragment = ConsumptionFragment()
         fragment.addYourself(supportFragmentManager)
     }
@@ -74,8 +74,20 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+            R.id.menuExit -> {
+                this.exitApp()
+            }
         }
         return true
+    }
+
+    override fun onBackPressed() {
+        this.exitApp()
+    }
+
+    private fun exitApp() {
+        android.os.Process.killProcess(android.os.Process.myPid())
+        System.exit(1)
     }
 
 
