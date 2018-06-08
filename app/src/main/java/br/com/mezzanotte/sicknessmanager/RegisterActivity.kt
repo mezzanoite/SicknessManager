@@ -64,7 +64,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
         } else {
-            title = "New sickness register"
+            title = getString(R.string.new_register_text)
             val cal = Calendar.getInstance()
             tvHour.text = SimpleDateFormat(RegisterActivity.timePattern).format(cal.time)
             tvDate.text = SimpleDateFormat(RegisterActivity.datePattern).format(cal.time)
@@ -152,8 +152,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun showAlertDialog() {
         val alertDialog = AlertDialog.Builder(this@RegisterActivity).create()
-        alertDialog.setTitle("Ups!")
-        alertDialog.setMessage("You forgot to choose a product")
+        alertDialog.setTitle(getString(R.string.ups))
+        alertDialog.setMessage(getString(R.string.forgot_product))
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", {
             dialog, _ ->
             dialog.dismiss()

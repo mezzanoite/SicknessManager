@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
                 firebaseAuth.signOut()
             } else {
                 // Usuário se manteve logado
-                Toast.makeText(this, "Welcome back ${firebaseUser.email}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.welcome_back) + " ${firebaseUser.email}", Toast.LENGTH_LONG).show()
                 val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(mainIntent)
                 finish()
@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
                                 startActivity(mainIntent)
                                 finish()
                             } else {
-                                Toast.makeText(this, "Erro ao fazer login", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, getString(R.string.login_error), Toast.LENGTH_SHORT).show()
                                 //showMessage(view,"Error: ${task.exception?.message}")
                             }
                         })
@@ -94,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
                         createUser(email, password, dialog)
                     }
                 })
-                .setNegativeButton("Cancel", { dialog, _ ->
+                .setNegativeButton(getString(R.string.cancel), { dialog, _ ->
                     dialog.dismiss()
                 })
         builder.create().show()
@@ -114,13 +114,13 @@ class LoginActivity : AppCompatActivity() {
     private fun validateEmailPasswordIsBlank(email: String, password: String) : String? {
         var message: String? = null
         if (email.isBlank()) {
-            message = "The following fields are required: E-mail"
+            message = getString(R.string.fields_required_email)
         }
         if (password.isBlank()) {
             if (message != null) {
-                message += " and password"
+                message += " " + getString(R.string.field_password)
             } else {
-                message = "The following fields are required: Password"
+                message = getString(R.string.fields_required_password)
             }
         }
         return message
@@ -128,7 +128,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showAlertDialog(text: String, onOkShowCreateDialog: Boolean) {
         val alertDialog = AlertDialog.Builder(this@LoginActivity).create()
-        alertDialog.setTitle("Ups!")
+        alertDialog.setTitle(getString(R.string.ups))
         alertDialog.setMessage(text)
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", {
             dialog, _ ->

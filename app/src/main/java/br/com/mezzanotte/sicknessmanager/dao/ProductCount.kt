@@ -2,7 +2,7 @@ package br.com.mezzanotte.sicknessmanager.dao
 
 import android.arch.persistence.room.ColumnInfo
 
-/** Classe representativo do retorno do find abaixo:
+/** Classe representativa do retorno do find abaixo:
  * @see SicknessRegisterDao.findMostOcurrenceOfStatus
  */
 class ProductCount {

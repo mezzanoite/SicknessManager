@@ -7,6 +7,9 @@ import android.arch.persistence.room.OnConflictStrategy.ROLLBACK
 import br.com.mezzanotte.sicknessmanager.model.Product
 import br.com.mezzanotte.sicknessmanager.model.SicknessRegister
 
+/**
+ * Dao genérico com as operações comuns aos Daos do app
+ */
 @Dao
 interface GenericDao<T> {
 

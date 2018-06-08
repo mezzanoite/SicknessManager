@@ -5,7 +5,10 @@ import br.com.mezzanotte.sicknessmanager.SicknessManagerApplication
 import br.com.mezzanotte.sicknessmanager.dao.ProductDao
 import br.com.mezzanotte.sicknessmanager.dao.SicknessRegisterDao
 
-
+/**
+ * Gerenciador da base de dados. Utilizado para instanciar um novo database do Room
+ * associado ao seu respectivo Dao
+ */
 object DatabaseManager {
 
     private lateinit var dbInstance: AppDatabase
@@ -20,8 +23,6 @@ object DatabaseManager {
                     "app.sqlite")
                     .allowMainThreadQueries()
                     .build()
-            /*dbInstance = Room.inMemoryDatabaseBuilder(appContext.applicationContext,
-                    AppDatabase::class.java).allowMainThreadQueries().build()*/
         }
     }
 

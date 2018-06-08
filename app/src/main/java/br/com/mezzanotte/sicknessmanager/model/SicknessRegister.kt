@@ -3,14 +3,13 @@ package br.com.mezzanotte.sicknessmanager.model
 import android.arch.persistence.room.*
 import android.os.Parcel
 import android.os.Parcelable
-import br.com.mezzanotte.sicknessmanager.RegisterActivity
 
 @Entity(tableName = "sicknessRegister",
-        indices= arrayOf(Index(value = "product_id", name = "idx")),
-        foreignKeys = arrayOf(ForeignKey(
+        indices= [(Index(value = "product_id", name = "idx"))],
+        foreignKeys = [(ForeignKey(
                 entity = Product::class,
                 parentColumns = arrayOf("productId"),
-                childColumns = arrayOf("product_id"))))
+                childColumns = arrayOf("product_id")))])
 data class SicknessRegister(
         @PrimaryKey(autoGenerate = true) var sicknessRegisterId: Long?,
         var dataConsumo: String,

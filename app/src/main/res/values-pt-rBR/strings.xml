@@ -48,6 +48,28 @@
     <string name="version">Versão 1.0.0</string>
     <string name="edit_register">Editar registro de consumo</string>
     <string name="touch_the_phone_to_contact_us">Toque no telefone para entrar em contato conosco</string>
+    <string name="logout">Sair da conta</string>
+    <string name="exit_application">Sair da aplicação</string>
+    <string name="share">Compartilhar</string>
+    <string name="delete">Apagar</string>
+    <string name="brand_diagnosis_text">Esta é a marca que mais vezes fez você passar mal</string>
+    <string name="product_diagnosis_text">Este é o produto que mais vezes fez você passar mal</string>
+    <string name="consumed_number_text">Número de vezes que você consumiu o produto:</string>
+    <string name="new_product_register">Registro de novo produto</string>
+    <string name="new_register_text">Registro de novo consumo</string>
+    <string name="no_consumptions_registered_yet">Zero consumos registrados</string>
+    <string name="no_diagnosis_available_yet">Diagnóstico ainda não disponível\nO diagnóstico leva em conta o número de consumos que fizeram mal.</string>
+    <string name="field_required">Os seguintes campos são obrigatórios: Produto</string>
+    <string name="fields_brand_required">Os seguintes campos são obrigatórios: Marca</string>
+    <string name="fields_brand">e marca</string>
+    <string name="ups">Ops!</string>
+    <string name="forgot_product">Você esqueceu de escolher um produto</string>
+    <string name="fields_required_email">Os seguintes campos são obrigatórios: E-mail</string>
+    <string name="fields_required_password">Os seguintes campos são obrigatórios: Senha</string>
+    <string name="field_password">e senha</string>
+    <string name="cancel">Cancelar</string>
+    <string name="login_error">Erro ao fazer login</string>
+    <string name="welcome_back">Bem-vindo de volta</string>
 
 
 </resources>

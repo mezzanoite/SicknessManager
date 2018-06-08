@@ -3,18 +3,15 @@ package br.com.mezzanotte.sicknessmanager
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
+import android.view.MenuItem
 import br.com.mezzanotte.sicknessmanager.fragments.AboutFragment
+import br.com.mezzanotte.sicknessmanager.fragments.ConsumptionFragment
 import br.com.mezzanotte.sicknessmanager.fragments.DiagnosisFragment
 import br.com.mezzanotte.sicknessmanager.fragments.MapFragment
-import br.com.mezzanotte.sicknessmanager.fragments.ConsumptionFragment
-import kotlinx.android.synthetic.main.activity_main.*
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {

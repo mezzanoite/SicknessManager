@@ -18,20 +18,20 @@ class ProductActivity : AppCompatActivity() {
         setContentView(R.layout.activity_product)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        title = "New product registration"
+        title = getString(R.string.new_product_register)
 
         btRegisterProduct.setOnClickListener {
             var message: String? = null
             val nomeProduto = etProduct.text.toString()
             val marca = etBrand.text.toString()
             if (nomeProduto.isBlank()) {
-                message = "The following fields are required: Product name"
+                message = getString(R.string.field_required)
             }
             if (marca.isBlank()) {
                 if (message != null) {
-                    message += " and brand"
+                    message += " " + getString(R.string.fields_brand)
                 } else {
-                    message = "The following fields are required: Brand"
+                    message = getString(R.string.fields_brand_required)
                 }
             }
 
@@ -64,7 +64,7 @@ class ProductActivity : AppCompatActivity() {
 
     private fun showAlertDialog(text: String) {
         val alertDialog = AlertDialog.Builder(this@ProductActivity).create()
-        alertDialog.setTitle("Ups!")
+        alertDialog.setTitle(getString(R.string.ups))
         alertDialog.setMessage(text)
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", {
             dialog, _ ->

@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="No consumptions registered yet"
+        android:text="@string/no_consumptions_registered_yet"
         android:textSize="18sp"
         android:textStyle="bold" />
 
